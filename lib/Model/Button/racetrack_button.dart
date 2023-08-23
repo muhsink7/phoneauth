@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:phoneauth_firebase/constants/color_constants.dart';
 
-import '../../constants/color_constants.dart';
 import '../../controllers/race_track_button_controller/race_track_button_controller.dart';
 
 class RaceTrackButton extends StatelessWidget {

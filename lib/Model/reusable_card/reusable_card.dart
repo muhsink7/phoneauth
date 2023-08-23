@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/color_constants.dart';
+import 'package:phoneauth_firebase/constants/color_constants.dart';
 
 class ReusableCard extends StatelessWidget {
   const ReusableCard({super.key});

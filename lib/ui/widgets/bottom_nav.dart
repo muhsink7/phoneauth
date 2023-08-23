@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-
-import '../../constants/color_constants.dart'; // Import GetX
+import 'package:get/get.dart'; // Import GetX
+import '../../constants/color_constants.dart';
 
 RxInt indexChangeNotifier = 0.obs; // Use RxInt from GetX
 
@@ -31,7 +30,6 @@ class BottomNavigationWidget extends StatelessWidget {
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/race.svg',
-
                 color: indexChangeNotifier.value == 0 ? kWhiteColor : kGreyColor,
               ),
             ),

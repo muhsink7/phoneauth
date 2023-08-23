@@ -1,20 +1,19 @@
 
 import 'package:get/get.dart';
-
-import 'ui/loginscreen/loginscreen.dart';
-import 'ui/otp_screen/otp_binding.dart';
-import 'ui/otp_screen/otp_screen.dart';
+import 'package:phoneauth_firebase/ui/screens/otp_screen/otp_binding.dart';
 import 'ui/screens/cashier_screen/cashier_binding.dart';
 import 'ui/screens/cashier_screen/cashier_screen.dart';
 import 'ui/screens/home_screen/home_binding.dart';
 import 'ui/screens/home_screen/home_screen.dart';
 import 'ui/screens/login_screen/login_binding.dart';
+import 'ui/screens/login_screen/login_screen.dart';
 import 'ui/screens/main_Screen/main_binding.dart';
 import 'ui/screens/main_Screen/main_screen.dart';
 import 'ui/screens/menu_contents/kyc_details/kyc_binding.dart';
 import 'ui/screens/menu_contents/kyc_details/kyc_details_screen.dart';
 import 'ui/screens/menu_screen/menu_binding.dart';
 import 'ui/screens/menu_screen/menu_screen.dart';
+import 'ui/screens/otp_screen/otp_screen.dart';
 import 'ui/screens/race_screen/race_binding.dart';
 import 'ui/screens/race_screen/race_screen.dart';
 import 'ui/screens/result_screen/result_binding.dart';

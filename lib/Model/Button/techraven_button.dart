@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phoneauth_firebase/constants/image_constants.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import '../../constants/image_constants.dart';
 
 class TechravenButton extends StatelessWidget {
   final String linkUrl = "https://www.techraven.live/";

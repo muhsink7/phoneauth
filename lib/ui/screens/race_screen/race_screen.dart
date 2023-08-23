@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'race_controller.dart';
+import 'package:phoneauth_firebase/ui/screens/race_screen/race_controller.dart';
 
 class RaceScreen extends GetWidget<RaceController> {
   const RaceScreen({super.key});

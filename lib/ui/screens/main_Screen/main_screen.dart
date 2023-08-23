@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../home_screen/home_screen.dart';
+import 'package:phoneauth_firebase/ui/screens/home_screen/home_screen.dart';
+import 'package:phoneauth_firebase/ui/screens/result_screen/result_screen.dart';
 import '../../widgets/bottom_nav.dart';
 import '../cashier_screen/cashier_controller.dart';
 import '../cashier_screen/cashier_screen.dart';
@@ -9,7 +10,6 @@ import '../menu_screen/menu_screen.dart';
 import '../race_screen/race_controller.dart';
 import '../race_screen/race_screen.dart';
 import '../result_screen/result_controller.dart';
-import '../result_screen/result_screen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key});

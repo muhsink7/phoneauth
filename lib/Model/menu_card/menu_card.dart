@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/color_constants.dart';
+import 'package:phoneauth_firebase/constants/color_constants.dart';
 
 class MenuCard extends StatelessWidget {
   const MenuCard({super.key, required this.cardImage, required this.cardTitle, required this.onTap});

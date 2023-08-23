@@ -5,6 +5,7 @@ import '../../ui/screens/home_screen/home_controller.dart';
 
 class ImageBanner extends StatelessWidget {
   ImageBanner({Key? key, required this.imageLists});
+  final _homecontroller = Get.put(HomeController());
 
 
   final CarouselController carouselController = CarouselController();

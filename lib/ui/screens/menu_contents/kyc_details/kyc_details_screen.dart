@@ -1,9 +1,10 @@
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:phoneauth_firebase/ui/screens/menu_contents/kyc_details/kyc_controller.dart';
 
 import '../../../../constants/color_constants.dart';
-import 'kyc_controller.dart';
 
 class KYCDetailsScreen extends GetWidget<KYCController> {
   const KYCDetailsScreen({super.key});

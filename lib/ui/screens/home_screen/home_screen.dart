@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:phoneauth_firebase/Model/banner/image_banner.dart';
+import 'package:phoneauth_firebase/Model/reusable_card/reusable_card.dart';
+import 'package:phoneauth_firebase/ui/screens/home_screen/home_controller.dart';
 
-import '../../../Model/banner/image_banner.dart';
-import '../../../Model/reusable_card/reusable_card.dart';
+
 import '../../../constants/color_constants.dart';
-import '../../home_screen/home_controller.dart';
-
 
 class HomeScreen extends GetWidget<HomeController> {
   const HomeScreen({Key? key});

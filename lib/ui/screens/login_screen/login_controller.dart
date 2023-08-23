@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../Authentication/authentication_repository.dart';
+import 'package:phoneauth_firebase/Authentication/authentication_repository.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();

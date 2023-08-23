@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Model/Button/custom_button.dart';
+import 'package:phoneauth_firebase/Model/Button/custom_button.dart';
+import 'package:phoneauth_firebase/constants/color_constants.dart';
 import '../../../Model/Button/techraven_button.dart';
-import '../../../constants/color_constants.dart';
 import 'login_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
@@ -12,6 +12,7 @@ class LoginScreen extends GetWidget<LoginController> {
   Widget build(BuildContext context) {
     // Get instance of the LoginController
     // final LoginController _authRepository = Get.put(AuthenticationRepository());
+    final controller = Get.put(LoginController());
     final _formKey =GlobalKey<FormState>();
 
     return Scaffold(

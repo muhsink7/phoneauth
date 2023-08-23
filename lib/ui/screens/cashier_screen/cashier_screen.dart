@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'cashier_controller.dart';
+import 'package:phoneauth_firebase/ui/screens/cashier_screen/cashier_controller.dart';
 
 class CashierScreen extends GetWidget<CashierController> {
   const CashierScreen({super.key});

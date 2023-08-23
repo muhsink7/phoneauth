@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../constants/color_constants.dart';
+import 'package:phoneauth_firebase/constants/color_constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.onPressed,required this.title});

@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
 import 'image_list_screen.dart';
+import 'kyc_details_screen.dart';
 
 class KYCController extends GetxController {
   TextEditingController userNameController = TextEditingController();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:phoneauth_firebase/ui/screens/splash_screen/splash_controller.dart';
 import '../../../Authentication/auth_checker.dart';
 import '../../../Model/Button/techraven_button.dart';
 import '../../../constants/color_constants.dart';
-import 'splash_controller.dart';
 
 class SplashScreen extends GetWidget<SplashController> {
   const SplashScreen({super.key});
@@ -67,7 +67,7 @@ class SplashScreen extends GetWidget<SplashController> {
             } else {
               // Delayed navigation to the LoginScreen and pop the SplashScreen from the stack
               Future.delayed(Duration.zero, () {
-                Get.offAll(AuthChecker()); // Use Get.offAll to remove all previous routes from the stack
+                Get.offAll(()=>AuthChecker()); // Use Get.offAll to remove all previous routes from the stack
               });
               return const SizedBox();
             }

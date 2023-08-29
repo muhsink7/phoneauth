@@ -5,10 +5,19 @@ import 'package:http/http.dart'as http;
 
 // import '../../../Authentication/authentication_repository.dart';
 import '../../../router.dart';
+import '../menu_contents/kyc_details/kyc_controller.dart';
+
 
 class OtpController extends GetxController {
 
   static OtpController get instance => Get.find();
+  final KYCController kycController = Get.put(KYCController());
+
+  late TextEditingController otpTextController;
+
+  var isVerified;
+
+
 
   late TextEditingController otpTextController;
   var isVerified;
@@ -40,6 +49,12 @@ class OtpController extends GetxController {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
+        var responseData = json.decode(await response.stream.bytesToString());
+        var userId = responseData['userId'];
+        var phoneNumber = Get.arguments; // Get the phoneNo argument from the previous screen
+        isVerified = true; // Set isVerified to true if OTP is verified
+        kycController.kycUpdate(userId, phoneNumber); // Pass user ID and phone number
+
         print(await response.stream.bytesToString());
         isVerified = true; // Set isVerified to true if OTP is verified
       } else {

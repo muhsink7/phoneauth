@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:http/http.dart'as http;
+
 // import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:sizer/sizer.dart';
@@ -8,9 +11,14 @@ import 'image_list_screen.dart';
 // import 'kyc_details_screen.dart';
 
 class KYCController extends GetxController {
+
+  static KYCController get instance => Get.find();
+
+
   TextEditingController userNameController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController yearController = TextEditingController();
   TextEditingController monthController = TextEditingController();
@@ -92,6 +100,7 @@ class KYCController extends GetxController {
 
   void showGenderOption() {
     Get.dialog(
+
        AlertDialog(
         title: Text("Select a gender"),
         actions: [
@@ -234,6 +243,7 @@ class KYCController extends GetxController {
 
   void showMonthOption() {
     Get.dialog(
+
         AlertDialog(
           title: Text("Select Month"),
       contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
@@ -251,31 +261,94 @@ class KYCController extends GetxController {
           ],
         ),
       ),
-        ),
     );
   }
 
   void showDayOption() {
     Get.dialog(
-        AlertDialog(
-          title: Text("Select a Day"),
-          content: SingleChildScrollView(
-        child: Column(
-          children: [
-            for (String day in dayOption)
-              ListTile(
-                title: Text(day),
-                onTap: () {
-                  selectDay(day);
-                  Get.back(); // Close the dialog
-                },
-              ),
-          ],
+      AlertDialog(
+        title: Text("Select a Day"),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              for (String day in dayOption)
+                ListTile(
+                  title: Text(day),
+                  onTap: () {
+                    selectDay(day);
+                    print(day);
+                    Get.back(); // Close the dialog
+                  },
+                ),
+            ],
+          ),
         ),
       ),
-        ),
     );
   }
+
+  void selectDateOfBirth(String userId , String phoneNumber) {
+    RxString selectedYearRx = ''.obs;
+    RxString selectedMonthRx = ''.obs;
+    RxString selectedDayRx = ''.obs;
+      showYearOption();
+      ever(selectedYearRx, (_) {
+        showMonthOption();
+        ever(selectedMonthRx, (_) {
+          showDayOption();
+          ever(selectedDayRx, (_) {
+            // All parts of the date are selected, now you can use them
+            String dateOfBirth =
+                "${selectedDayRx.value}-${selectedMonthRx.value}-${selectedYearRx.value}";
+            // Call another function with the dateOfBirth value
+            kycUpdate(userId, phoneNumber, dateOfBirth);
+        });
+      });
+    });
+  }
+
+
+  Future<void> kycUpdate(userId, phoneNumber, [String? dateOfBirth]) async {
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('PUT',
+        Uri.parse('http://15.206.68.154:5000/users/update/$userId'));
+    request.body = json.encode({
+      "userId": userId,
+      "userName" :"",
+      "phoneNumber": phoneNumber,
+      "firstName" :"",
+      "lastName" :"",
+      "gender" :"",
+      "dateOfBirth" :"",
+      "email": emailController,
+      "balanceAmount" :"",
+      "registeredDate" :"",
+      "bankName" :"",
+      "accountNumber" :"",
+      "ifscCode" :"",
+      "upiId" :"",
+      "kycStatus" :"",
+      "kycAadharCardNumber": aadharNumController,
+      "kycPancardNumber" :"",
+      "kycPancardFront" :"",
+      "kycAadharFront" :"",
+      "kycAadharBack" :"",
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+  }
+
+
 
   @override
   void onClose() {
@@ -283,6 +356,7 @@ class KYCController extends GetxController {
     // Hive.close();
     super.onClose();
   }
+
 }
 
 

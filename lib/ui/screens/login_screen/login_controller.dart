@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:phoneauth_firebase/Authentication/authentication_repository.dart';
+// import 'package:phoneauth_firebase/Authentication/authentication_repository.dart';
+
+import '../../../router.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -24,10 +28,28 @@ class LoginController extends GetxController {
     update();
   }
 
-  void phoneAuthentication(String phoneNo) {
+  Future<void> phoneAuthentication(String phoneNo) async {
     print(phoneNo);
     if (phoneNo.isNotEmpty) {
-      AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+      var headers = {
+        'Content-Type': 'application/json'
+      };
+      var request = http.Request('POST', Uri.parse('http://15.206.68.154:5000/users/sendOTP'));
+      request.body = json.encode({
+        "phoneNumber": "$phoneNo",
+      });
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+        Get.toNamed(RoutePaths.otpScreen, arguments: phoneNo);
+      }
+      else {
+        print(response.reasonPhrase);
+      }
+      // AuthenticationRepository.instance.phoneAuthentication(phoneNo);
     } else {
       Get.snackbar("Error", "Not found a Mobile Number");
     }

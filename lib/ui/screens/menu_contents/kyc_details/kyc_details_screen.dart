@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -326,6 +325,9 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                       children: [
                                         Expanded(
                                           child: TextField(
+                                            onTap: () {
+                                              controller.showImageOption();
+                                            },
                                             style: TextStyle(color: Colors.black),
                                             decoration: InputDecoration(
                                                 hintText: 'PAN Card',
@@ -408,6 +410,9 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                     children: [
                                       Expanded(
                                         child: TextField(
+                                          onTap: () {
+                                            controller.showImageOption();
+                                          },
                                           style: TextStyle(color: Colors.black),
                                           decoration: InputDecoration(
                                               hintText: 'Front side',
@@ -460,6 +465,9 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                     children: [
                                       Expanded(
                                         child: TextField(
+                                          onTap: () {
+                                            controller.showImageOption();
+                                          },
                                           style: TextStyle(color: Colors.black),
                                           decoration: InputDecoration(
                                               hintText: 'Back side',

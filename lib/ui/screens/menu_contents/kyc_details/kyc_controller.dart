@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sizer/sizer.dart';
+// import 'package:sizer/sizer.dart';
 
 import 'image_list_screen.dart';
-import 'kyc_details_screen.dart';
+// import 'kyc_details_screen.dart';
 
 class KYCController extends GetxController {
   TextEditingController userNameController = TextEditingController();
@@ -137,17 +137,20 @@ class KYCController extends GetxController {
         child: AlertDialog(
           title: Row(
             children: [
-              Text(
-                'Pick image from',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              Spacer(),
               InkWell(
                 onTap: () {
                   Get.back(); // Close the dialog using GetX
                 },
-                child: Icon(Icons.arrow_forward_ios_rounded),
+                child: Icon(Icons.arrow_back_ios),
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Pick image from',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
               ),
             ],
           ),
@@ -166,7 +169,7 @@ class KYCController extends GetxController {
                         },
                         child: Icon(Icons.camera_alt),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -175,7 +178,7 @@ class KYCController extends GetxController {
                       ),
                     ],
                   ),
-                  SizedBox(width: 3.w),
+                  SizedBox(width: 30),
                   Column(
                     children: [
                       InkWell(
@@ -185,7 +188,7 @@ class KYCController extends GetxController {
                         },
                         child: Icon(Icons.image),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),

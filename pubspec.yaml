@@ -47,6 +47,7 @@ dependencies:
   hive:
   path_provider:
   sizer:
+  http:
 
 dev_dependencies:
   flutter_test:

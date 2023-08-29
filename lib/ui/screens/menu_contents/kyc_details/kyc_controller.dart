@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart'as http;
+
 // import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:sizer/sizer.dart';
@@ -99,7 +100,8 @@ class KYCController extends GetxController {
 
   void showGenderOption() {
     Get.dialog(
-      AlertDialog(
+
+       AlertDialog(
         title: Text("Select a gender"),
         actions: [
           Column(
@@ -241,22 +243,22 @@ class KYCController extends GetxController {
 
   void showMonthOption() {
     Get.dialog(
-      AlertDialog(
-        title: Text("Select Month"),
-        contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              for (String month in monthOption)
-                ListTile(
-                  title: Text(month),
-                  onTap: () {
-                    selectMonth(month);
-                    Get.back(); // Close the dialog
-                  },
-                ),
-            ],
-          ),
+
+        AlertDialog(
+          title: Text("Select Month"),
+      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            for (String month in monthOption)
+              ListTile(
+                title: Text(month),
+                onTap: () {
+                  selectMonth(month);
+                  Get.back(); // Close the dialog
+                },
+              ),
+          ],
         ),
       ),
     );
@@ -347,10 +349,14 @@ class KYCController extends GetxController {
   }
 
 
-@override
+
+  @override
   void onClose() {
     // _imageBox.close();
     // Hive.close();
     super.onClose();
   }
+
 }
+
+

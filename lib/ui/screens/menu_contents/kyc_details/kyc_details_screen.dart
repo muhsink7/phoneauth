@@ -10,6 +10,7 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -48,6 +49,31 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
 
 
                           Container(
+                      decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          controller: controller.userNameController,
+                          cursorColor: Colors.white,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              hintText: 'User name',
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Container(
+
                             decoration: BoxDecoration(
                                 color: secondaryColor,
                                 borderRadius: BorderRadius.circular(12)),
@@ -59,6 +85,7 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                     hintText: 'User name',
+                               
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(color: Colors.white)),
                               ),
@@ -531,6 +558,7 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                     ],
                   );
                 }
+
             ),
           ),
         ),
@@ -544,3 +572,4 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
 
 
 }
+

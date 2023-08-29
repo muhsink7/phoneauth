@@ -50,6 +50,7 @@ class LoginController extends GetxController {
         print(response.reasonPhrase);
       }
       // AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+  
     } else {
       Get.snackbar("Error", "Not found a Mobile Number");
     }

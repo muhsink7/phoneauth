@@ -7,6 +7,7 @@ import 'package:http/http.dart'as http;
 import '../../../router.dart';
 import '../menu_contents/kyc_details/kyc_controller.dart';
 
+
 class OtpController extends GetxController {
 
   static OtpController get instance => Get.find();
@@ -16,6 +17,10 @@ class OtpController extends GetxController {
 
   var isVerified;
 
+
+
+  late TextEditingController otpTextController;
+  var isVerified;
 
   @override
   void onInit() {
@@ -50,6 +55,8 @@ class OtpController extends GetxController {
         isVerified = true; // Set isVerified to true if OTP is verified
         kycController.kycUpdate(userId, phoneNumber); // Pass user ID and phone number
 
+        print(await response.stream.bytesToString());
+        isVerified = true; // Set isVerified to true if OTP is verified
       } else {
         print(response.reasonPhrase);
         isVerified = false; // Set isVerified to false if OTP is not verified

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 
 // import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,9 +11,9 @@ import 'image_list_screen.dart';
 // import 'kyc_details_screen.dart';
 
 class KYCController extends GetxController {
-
   static KYCController get instance => Get.find();
 
+  bool isKYCSubmitted = false;
 
   TextEditingController userNameController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -23,8 +23,12 @@ class KYCController extends GetxController {
   TextEditingController yearController = TextEditingController();
   TextEditingController monthController = TextEditingController();
   TextEditingController dayController = TextEditingController();
-  TextEditingController panNumController = TextEditingController();
+  TextEditingController pancardNumController = TextEditingController();
   TextEditingController aadharNumController = TextEditingController();
+  TextEditingController bankNameController = TextEditingController();
+  TextEditingController accountNumberController = TextEditingController();
+  TextEditingController ifscCodeController = TextEditingController();
+  TextEditingController upiIdController = TextEditingController();
 
   String? selectedGender;
   final List<String> genderOption = ['Male', 'Female', 'Others'];
@@ -34,18 +38,55 @@ class KYCController extends GetxController {
 
   String? selectedMonth;
   final List<String> monthOption = [
-    'January', 'February', 'March', 'April', 'May', 'June', 'July',
-    'August', 'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   final DateTime lastDate = DateTime.now().subtract(Duration(days: 365 * 18));
 
-
   String? selectedDay;
   final List<String> dayOption = [
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13',
-    '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24',
-    '25', '26', '27', '28', '29', '30', '31',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+    '31',
   ];
 
   @override
@@ -100,8 +141,7 @@ class KYCController extends GetxController {
 
   void showGenderOption() {
     Get.dialog(
-
-       AlertDialog(
+      AlertDialog(
         title: Text("Select a gender"),
         actions: [
           Column(
@@ -215,7 +255,6 @@ class KYCController extends GetxController {
     );
   }
 
-
   void showYearOption() {
     Get.dialog(
       AlertDialog(
@@ -235,30 +274,28 @@ class KYCController extends GetxController {
                   ),
               ],
             ),
-          )
-      ),
+          )),
     );
   }
 
-
   void showMonthOption() {
     Get.dialog(
-
-        AlertDialog(
-          title: Text("Select Month"),
-      contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      content: SingleChildScrollView(
-        child: Column(
-          children: [
-            for (String month in monthOption)
-              ListTile(
-                title: Text(month),
-                onTap: () {
-                  selectMonth(month);
-                  Get.back(); // Close the dialog
-                },
-              ),
-          ],
+      AlertDialog(
+        title: Text("Select Month"),
+        contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              for (String month in monthOption)
+                ListTile(
+                  title: Text(month),
+                  onTap: () {
+                    selectMonth(month);
+                    Get.back(); // Close the dialog
+                  },
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -287,54 +324,52 @@ class KYCController extends GetxController {
     );
   }
 
-  void selectDateOfBirth(String userId , String phoneNumber) {
+  void selectDateOfBirth(String userId, String phoneNumber) {
     RxString selectedYearRx = ''.obs;
     RxString selectedMonthRx = ''.obs;
     RxString selectedDayRx = ''.obs;
-      showYearOption();
-      ever(selectedYearRx, (_) {
-        showMonthOption();
-        ever(selectedMonthRx, (_) {
-          showDayOption();
-          ever(selectedDayRx, (_) {
-            // All parts of the date are selected, now you can use them
-            String dateOfBirth =
-                "${selectedDayRx.value}-${selectedMonthRx.value}-${selectedYearRx.value}";
-            // Call another function with the dateOfBirth value
-            kycUpdate(userId, phoneNumber, dateOfBirth);
+    showYearOption();
+    ever(selectedYearRx, (_) {
+      showMonthOption();
+      ever(selectedMonthRx, (_) {
+        showDayOption();
+        ever(selectedDayRx, (_) {
+          // All parts of the date are selected, now you can use them
+          String dateOfBirth =
+              "${selectedDayRx.value}-${selectedMonthRx.value}-${selectedYearRx.value}";
+          print(dateOfBirth);
+          // Call another function with the dateOfBirth value
+          kycUpdate(userId, phoneNumber, dateOfBirth);
         });
       });
     });
   }
 
-
   Future<void> kycUpdate(userId, phoneNumber, [String? dateOfBirth]) async {
-    var headers = {
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request('PUT',
-        Uri.parse('http://15.206.68.154:5000/users/update/$userId'));
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'PUT', Uri.parse('http://15.206.68.154:5000/users/update/$userId'));
     request.body = json.encode({
       "userId": userId,
-      "userName" :"",
+      "userName": userNameController.text,
       "phoneNumber": phoneNumber,
-      "firstName" :"",
-      "lastName" :"",
-      "gender" :"",
-      "dateOfBirth" :"",
-      "email": emailController,
-      "balanceAmount" :"",
-      "registeredDate" :"",
-      "bankName" :"",
-      "accountNumber" :"",
-      "ifscCode" :"",
-      "upiId" :"",
-      "kycStatus" :"",
-      "kycAadharCardNumber": aadharNumController,
-      "kycPancardNumber" :"",
-      "kycPancardFront" :"",
-      "kycAadharFront" :"",
-      "kycAadharBack" :"",
+      "firstName": firstNameController.text,
+      "lastName": lastNameController.text,
+      "gender": genderController.text,
+      "dateOfBirth": dateOfBirth,
+      "email": emailController.text,
+      "balanceAmount": "",
+      "registeredDate": "",
+      "bankName": bankNameController.text,
+      "accountNumber": accountNumberController.text,
+      "ifscCode": ifscCodeController.text,
+      "upiId": upiIdController.text,
+      "kycStatus": "",
+      "kycAadharCardNumber": aadharNumController.text,
+      "kycPancardNumber": pancardNumController.text,
+      "kycPancardFront": "",
+      "kycAadharFront": "",
+      "kycAadharBack": "",
     });
     request.headers.addAll(headers);
 
@@ -342,13 +377,11 @@ class KYCController extends GetxController {
 
     if (response.statusCode == 200) {
       print(await response.stream.bytesToString());
-    }
-    else {
+      isKYCSubmitted = true;
+    } else {
       print(response.reasonPhrase);
     }
   }
-
-
 
   @override
   void onClose() {
@@ -356,7 +389,4 @@ class KYCController extends GetxController {
     // Hive.close();
     super.onClose();
   }
-
 }
-
-

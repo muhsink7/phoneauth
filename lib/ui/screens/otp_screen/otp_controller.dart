@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart'as http;
 
@@ -12,14 +13,10 @@ class OtpController extends GetxController {
 
   static OtpController get instance => Get.find();
   final KYCController kycController = Get.put(KYCController());
+  final box = GetStorage();
 
   late TextEditingController otpTextController;
 
-  var isVerified;
-
-
-
-  late TextEditingController otpTextController;
   var isVerified;
 
   @override
@@ -55,6 +52,7 @@ class OtpController extends GetxController {
         isVerified = true; // Set isVerified to true if OTP is verified
         kycController.kycUpdate(userId, phoneNumber); // Pass user ID and phone number
 
+        box.write('is_authenticated', true);
         print(await response.stream.bytesToString());
         isVerified = true; // Set isVerified to true if OTP is verified
       } else {

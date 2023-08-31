@@ -3,10 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart'; // Import GetX
 import '../../constants/color_constants.dart';
 
-RxInt indexChangeNotifier = 0.obs; // Use RxInt from GetX
 
 class BottomNavigationWidget extends StatelessWidget {
-  const BottomNavigationWidget({Key? key});
+   BottomNavigationWidget({super.key,required this.indexChangeNotifier });
+  RxInt indexChangeNotifier; // Use RxInt from GetX
+
 
   @override
   Widget build(BuildContext context) {

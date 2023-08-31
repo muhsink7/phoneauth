@@ -23,6 +23,7 @@ class MainScreen extends StatelessWidget {
     MenuCardScreen(),
   ];
 
+  RxInt indexChangeNotifier = 2.obs; // Use RxInt from GetX
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class MainScreen extends StatelessWidget {
           return _pages[index];
         }),
       ),
-      bottomNavigationBar: BottomNavigationWidget(),
+      bottomNavigationBar: BottomNavigationWidget(indexChangeNotifier: indexChangeNotifier)
+
     );
   }
 }

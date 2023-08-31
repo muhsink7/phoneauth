@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 // import 'package:sizer/sizer.dart';
 
+import '../../../../Model/kyc_model/kyc_update.dart';
 import 'image_list_screen.dart';
 // import 'kyc_details_screen.dart';
 
@@ -14,6 +15,9 @@ class KYCController extends GetxController {
   static KYCController get instance => Get.find();
 
   bool isKYCSubmitted = false;
+
+  List<KycUpdate> kycUpdateData = [];
+  var kycData;
 
   TextEditingController userNameController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -29,6 +33,7 @@ class KYCController extends GetxController {
   TextEditingController accountNumberController = TextEditingController();
   TextEditingController ifscCodeController = TextEditingController();
   TextEditingController upiIdController = TextEditingController();
+  String? gender;
 
   String? selectedGender;
   final List<String> genderOption = ['Male', 'Female', 'Others'];
@@ -174,6 +179,11 @@ class KYCController extends GetxController {
         ],
       ),
     );
+  }
+  void genderSelected(String gender) {
+    selectedGender = gender;
+    genderController.text = gender;
+    KYCController.instance.gender = gender; // Update gender variable
   }
 
   void showImageOption() {
@@ -345,33 +355,40 @@ class KYCController extends GetxController {
     });
   }
 
-  Future<void> kycUpdate(userId, phoneNumber, [String? dateOfBirth]) async {
+  // void submitKYCDetails(String userId, String phoneNumber, String dateOfBirth) {
+  //   kycUpdate(userId, phoneNumber, dateOfBirth);
+  // }
+
+  Future<void> kycUpdate( userId, phoneNumber, [String? dateOfBirth]) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'PUT', Uri.parse('http://15.206.68.154:5000/users/update/$userId'));
-    request.body = json.encode({
-      "userId": userId,
-      "userName": userNameController.text,
-      "phoneNumber": phoneNumber,
-      "firstName": firstNameController.text,
-      "lastName": lastNameController.text,
-      "gender": genderController.text,
-      "dateOfBirth": dateOfBirth,
-      "email": emailController.text,
-      "balanceAmount": "",
-      "registeredDate": "",
-      "bankName": bankNameController.text,
-      "accountNumber": accountNumberController.text,
-      "ifscCode": ifscCodeController.text,
-      "upiId": upiIdController.text,
-      "kycStatus": "",
-      "kycAadharCardNumber": aadharNumController.text,
-      "kycPancardNumber": pancardNumController.text,
-      "kycPancardFront": "",
-      "kycAadharFront": "",
-      "kycAadharBack": "",
-    });
+      kycData = KycUpdate(
+      userId: userId,
+      phoneNumber: phoneNumber,
+      balanceAmount: 55967, // Provide the actual balance amount if needed
+      kycStatus: "",
+      registeredDate: "",
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      accountNumber: accountNumberController.text,
+      email: emailController.text,
+      bankName: bankNameController.text,
+      dateOfBirth: dateOfBirth ?? "", // Provide the actual date of birth if available
+      gender: gender ?? "", // Provide the actual gender if available
+      ifscCode: ifscCodeController.text,
+      kycAadharCardNumber: aadharNumController.text,
+      userName: userNameController.text,
+      kycAadharBack: "",
+      kycAadharFront: "",
+      kycPancardFront: "",
+      upiId: upiIdController.text,
+    );
+
+    request.body = json.encode(kycData.toJson()); // Use the toJson() method of the KycUpdate class
+
     request.headers.addAll(headers);
+    print(request.body);
 
     http.StreamedResponse response = await request.send();
 

@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart'as http;
+import 'package:phoneauth_firebase/Model/kyc_model/kyc_update.dart';
 
 // import '../../../Authentication/authentication_repository.dart';
 import '../../../router.dart';
 import '../menu_contents/kyc_details/kyc_controller.dart';
+
 
 
 class OtpController extends GetxController {
@@ -18,6 +20,11 @@ class OtpController extends GetxController {
   late TextEditingController otpTextController;
 
   var isVerified;
+  var userId;
+  var phoneNumber;
+  var responseData;
+
+  List<KycUpdate> kycUpdateData = [];
 
   @override
   void onInit() {
@@ -32,42 +39,44 @@ class OtpController extends GetxController {
   }
 
   Future<void> verifyOtp() async {
-    if (otp.isNotEmpty) { // Check if otp is not empty
+    if (otp.isNotEmpty) {
       var headers = {
         'Content-Type': 'application/json'
       };
       var request = http.Request('POST', Uri.parse('http://15.206.68.154:5000/users/verifyOTP'));
       request.body = json.encode({
-        "phoneNumber": Get.arguments, // Get the phoneNo argument from the previous screen
-        "otp": otp // Use the entered OTP
+        "phoneNumber": Get.arguments,
+        "otp": otp,
       });
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
+      String responseString = await response.stream.bytesToString(); // Listen to the stream once
 
       if (response.statusCode == 200) {
-        var responseData = json.decode(await response.stream.bytesToString());
-        var userId = responseData['userId'];
-        var phoneNumber = Get.arguments; // Get the phoneNo argument from the previous screen
-        isVerified = true; // Set isVerified to true if OTP is verified
-        kycController.kycUpdate(userId, phoneNumber); // Pass user ID and phone number
-
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         responseData = json.decode(responseString);
+         userId = responseData['userId'];
+         phoneNumber = Get.arguments;
+        // kycUpdateData = List<KycUpdate>.from(json.decode(responseString).map((x) => KycUpdate.fromJson(x)));
+        print(kycUpdateData);
+        isVerified = true;
+        kycController.kycUpdate(userId, phoneNumber);
+        box.write('kycUpdateData', responseString);
         box.write('is_authenticated', true);
-        print(await response.stream.bytesToString());
-        isVerified = true; // Set isVerified to true if OTP is verified
+        print(responseString);
+        isVerified = true;
       } else {
         print(response.reasonPhrase);
-        isVerified = false; // Set isVerified to false if OTP is not verified
+        isVerified = false;
       }
 
-      // var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
-
-      isVerified ? Get.offAndToNamed(RoutePaths.mainScreen) : Get.back();
+      isVerified ? Get.toNamed(RoutePaths.mainScreen) : Get.back();
     } else {
       print("OTP is empty");
     }
-
   }
+
 
   void resendOtp() {
     // Add your logic to resend the OTP here

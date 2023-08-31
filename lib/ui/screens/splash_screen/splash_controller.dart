@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
 
-import '../../../router.dart';
+// import '../../../router.dart';
 
 
 class SplashController extends GetxController {
@@ -26,10 +26,10 @@ class SplashController extends GetxController {
       if (progressValue.value >= 1.0) {
         isLoading.value = false;
         t.cancel();
-        print("before navigate to login");
+        // print("before navigate to login");
         // Navigate to the LoginScreen
-       Get.toNamed(RoutePaths.loginScreen);
-       print("after navigate to login");
+       // Get.toNamed(RoutePaths.loginScreen);
+       // print("after navigate to login");
 
       }
     });
